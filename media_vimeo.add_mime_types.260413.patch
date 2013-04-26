@@ -1,0 +1,26 @@
+diff --git a/media_vimeo.module b/media_vimeo.module
+index 0ad210c..a0738bc 100644
+--- a/media_vimeo.module
++++ b/media_vimeo.module
+@@ -120,3 +120,21 @@ function media_vimeo_ctools_plugin_api($owner, $api) {
+     return array('version' => $api_versions[$owner][$api]);
+   }
+ }
++
++/**
++ * Implements hook_file_mimetype_mapping_alter().
++ *
++ * Regster the video/vimeo mimetype.
++ */
++function media_vimeo_file_mimetype_mapping_alter(&$mapping) {
++  $mapping['mimetypes'][] = 'video/vimeo';
++}
++
++/*
++ * Implements hook_file_default_types_alter().
++ *
++ * Adds the video/vimeo fake mimetype to video files.
++ */
++function media_vimeo_file_default_types_alter(&$types) {
++  $types['video']->mimetypes[] = 'video/vimeo';
++}
